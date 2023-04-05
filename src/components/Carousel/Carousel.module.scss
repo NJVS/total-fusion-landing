@@ -1,0 +1,52 @@
+@use '../../assets/styles/utils' as *;
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: min(1920px, 95%);
+
+  ul.track {
+    display: grid;
+    grid-template-rows: auto;
+    width: 100%;
+    overflow-x: scroll;
+    list-style-type: none;
+    transition: all 0.3s ease;
+    scroll-snap-stop: normal;
+    scroll-behavior: auto;
+
+    // scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    li.item {
+      scroll-snap-align: center;
+      scroll-snap-stop: normal;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      text-align: center;
+
+      .logo {
+        width: 12%;
+
+        @include media('<=425px') {
+          width: auto;
+          height: 40px;
+        }
+      }
+
+      @include media('<=1366px') {
+        gap: 1.5rem;
+      }
+      @include media('<=1195px') {
+        gap: 1rem;
+      }
+    }
+  }
+}

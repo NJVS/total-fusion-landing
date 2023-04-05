@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'CircularXX';
+  src: url('./custom/CircularXX-Bold.woff2') format('woff2'),
+    url('./custom/CircularXX-Bold.woff') format('woff'),
+    url('./custom/CircularXX-Bold.ttf') format('truetype'),
+    url('./custom/CircularXX-Bold.svg#CircularXX-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MFred';
+  src: url('./custom/MFred.woff2') format('woff2'),
+    url('./custom/MFred.woff') format('woff'),
+    url('./custom/MFred.ttf') format('truetype'),
+    url('./custom/MFred.svg#MFred') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CircularXX';
+  src: url('./custom/CircularXX-Light.woff2') format('woff2'),
+    url('./custom/CircularXX-Light.woff') format('woff'),
+    url('./custom/CircularXX-Light.ttf') format('truetype'),
+    url('./custom/CircularXX-Light.svg#CircularXX-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AW Conqueror Didot';
+  src: url('./custom/AWConquerorDidot-Light.woff2') format('woff2'),
+    url('./custom/AWConquerorDidot-Light.woff') format('woff'),
+    url('./custom/AWConquerorDidot-Light.ttf') format('truetype'),
+    url('./custom/AWConquerorDidot-Light.svg#AWConquerorDidot-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}

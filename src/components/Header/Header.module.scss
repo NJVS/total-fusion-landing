@@ -1,0 +1,100 @@
+@use '../../assets/styles/utils' as *;
+
+.container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 640/333;
+  overflow: hidden;
+
+  @include media('<=653px') {
+    height: 80vh;
+    aspect-ratio: unset;
+  }
+
+  @include media('<=425px') {
+    height: 100vh;
+  }
+
+  .hero {
+    position: absolute;
+    inset: 0;
+    background-color: tomato; // temp
+
+    .bg {
+      position: absolute;
+      // inset: 0;
+      right: 0;
+      width: 110%;
+      aspect-ratio: 640/333;
+      // transform: translate(0, -70px); // scroll trigger paralax effect
+      background: url(../../assets/images/hero-bg.jpg);
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: cover;
+
+      @include media('<=653px') {
+        height: 110%;
+        background-position: top 0px right -512px;
+        background-size: auto 100vh;
+      }
+
+      @include media('<=425px') {
+        height: 110%;
+        background: url(../../assets/images/hero-bg-mobile.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover, contain;
+        box-shadow: inset 0 0 0 2000px rgba(#000, 0.3);
+      }
+    }
+
+    .img {
+      position: absolute;
+      top: 55%;
+      left: 60%;
+      transform: translate(0, -50%);
+      height: min(763px, 80%);
+
+      @include media('<=653px') {
+        left: 55%;
+        height: min(50%);
+      }
+
+      @include media('<=425px') {
+        // left: 65%;
+        display: none;
+      }
+    }
+  }
+
+  .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+    text-align: center;
+
+    @include media('<=1366px') {
+      gap: 1.5rem;
+    }
+
+    @include media('<=975px', '>425px') {
+      gap: 0.875rem;
+    }
+
+    h1 {
+      margin-top: 3rem;
+    }
+
+    p {
+      width: min(720px, 75%);
+
+      @include media('<=425px') {
+        width: 100%;
+      }
+    }
+  }
+}
