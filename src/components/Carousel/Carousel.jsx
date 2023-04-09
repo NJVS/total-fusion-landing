@@ -1,48 +1,40 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
 import global from '../../global.module.scss';
 import styles from './Carousel.module.scss';
 
 import { treatments } from '../../data/treatments';
 
-const Carousel = ({ col, row, gap  }) => {
-  // responsive
-  const [winWidth, setWinWidth] = useState(window.innerWidth);
-
-
+const Carousel = () => {
   const track = useRef(null);
   const [width, setWidth] = useState();
   const [isGrabbing, setIsGrabbing] = useState(false);
   const [startX, setStartX] = useState(null)
   const [scrollLeft, setScrollLeft] = useState(null)
 
-  // const [itemsToShow, setItemsToShow] = useState(0);
-  // const [numOfRows, setNumOfRows] = useState(1);
-  // const [gapPerItem, setGapPerItem] = useState(0);
+  // responsive carousel options
+  const [windowDimension, setWindowDimension] = useState(window.innerWidth);
 
+  const [col, setCol] = useState((windowDimension > 975) ? 3.5 : (windowDimension > 545) ? 2.5 : 1.5);
+  const [row, setRow] = useState((windowDimension > 975) ? 40 : 20);
+  const [gap, setGap] = useState((windowDimension > 425) ? 2 : 1);
 
-  // function responseToResize() {
-  //   if (winWidth > 1366) {
-  //     setItemsToShow(3.5)
-  //   } else {
-  //     setItemsToShow(3);
-  //   }
-  // }
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowDimension(window.innerWidth);
+    })
+  }, []);
 
-  // const opt = {
-  //   itemsToShow: 3.5,
-  //   rows: 2,
-  //   gap: 40 // px
-  // }
+  useEffect(() => {
+    setCol((windowDimension > 975) ? 3.5 : (windowDimension > 545) ? 2.5 : 1.5);
+    setGap((windowDimension > 975) ? 40 : 20);
+    setRow((windowDimension > 425) ? 2 : 1);
+    // setWidth(track.current.offsetWidth / col - (gap - (gap / col)))
+  }, [windowDimension])
+
   useEffect(() => {
     setWidth(track.current.offsetWidth / col - (gap - (gap / col)))
   });
-
-  // // tracks window width
-  // useEffect(() => {
-  //   responseToResize();
-  //   setWidth(track.current.offsetWidth / itemsToShow - (opt.gap - (opt.gap / itemsToShow)))
-  // }, [winWidth]);
-
 
   // controlls
   function grab(event) {
@@ -61,6 +53,22 @@ const Carousel = ({ col, row, gap  }) => {
     event.currentTarget.scrollLeft = scrollLeft - walk;
   }
 
+
+  // gsap
+  const app = useRef();
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(track.current.children), 0.25, {
+        autoAlpha: 0, y: 50, stagger: 0.25,
+        scrollTrigger: { 
+          trigger: track.current, 
+          start: '30px bottom'
+        }
+      })
+    }, app)
+
+    return () => ctx.revert();
+  }, [])
 
   return (
     <div className={styles.container}>

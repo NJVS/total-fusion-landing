@@ -1,13 +1,42 @@
+import { useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+
 import global from '../../global.module.scss';
 import styles from './Footer.module.scss';
 
 import btnSubmit from '../../assets/logos/submit-button.png';
 
 const Footer = () => {
+  const app = useRef();
+  const formRef = useRef();
+  const navRef = useRef();
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(formRef.current.children, 0.75, {
+        autoAlpha: 0, y: 30, stagger: 0.25,
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: 'center bottom'
+        }
+      })
+
+      gsap.from(navRef.current.children, 0.75, {
+        autoAlpha: 0, y: 30, stagger: 0.25,
+        scrollTrigger: {
+          trigger: navRef.current,
+          start: 'center bottom'
+        }
+      })
+    }, app)
+  
+    return () => ctx.revert();
+  }, [])
+
   return (
     <footer className={styles.container}>
       <div className={global.container}>
-        <form>
+        <form ref={formRef}>
           <h2 className={`${global.title} ${global.light}`}>Stay Connected</h2>
           <p className={`${global.paragraph} ${global.xsm} ${global.light}`}>
             Let us share all you need to know about health and wellness straight
@@ -21,7 +50,7 @@ const Footer = () => {
           </div>
         </form>
         <nav>
-          <ul>
+          <ul ref={navRef}>
             <li><a href="#">Contact</a></li>
             <li><a href="#">Faqs</a></li>
             <li><a href="#">Membership</a></li>

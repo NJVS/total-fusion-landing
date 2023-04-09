@@ -4,31 +4,51 @@
   position: fixed;
   width: 100%;
   z-index: 99;
-  // background-color: rgba(#000, 0.5);
-  // backdrop-filter: blur(8px);
+  transition: background-color 0.2s ease;
+
+  &.scrolled {
+    background-color: rgba(#000, 0.5);
+    backdrop-filter: blur(8px);
+
+    .nav_links {
+
+      .nav_logo img {
+        height: 2.875rem;
+
+        @include media('<=975px') {
+          height: 2.375rem;
+        }
+      }
+    }
+  }
 
   .nav_links {
     display: grid;
     grid-template-columns: 1fr 1fr 1.75fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr auto 1fr 1fr;
     padding: 1.25rem 0rem;
     align-items: center;
+    transition: padding 0.2s ease;
 
-    @include media('<=1440px') {
-      grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
-    }
+    // @include media('<=1440px') {
+    //   grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+    //   grid-template-columns: 1fr 1fr auto 1fr 1fr;
+    // }
 
-    @include media('<=1366px') {
-      grid-template-columns: 1fr 0.75fr 1.125fr 0.75fr 1fr;
-    }
+    // @include media('<=1366px') {
+    //   grid-template-columns: 1fr 0.75fr 1.125fr 0.75fr 1fr;
+    //   grid-template-columns: 1fr 0.75fr auto 0.75fr 1fr;
+    // }
 
-    @include media('<=1195px') {
-      grid-template-columns: 1fr 0.75fr 1fr 0.75fr 1fr;
-    }
+    // @include media('<=1195px') {
+    //   grid-template-columns: 1fr 0.75fr 1fr 0.75fr 1fr;
+    //   grid-template-columns: 1fr 0.75fr auto 0.75fr 1fr;
+    // }
 
     @include media('<=975px') {
       justify-items: center;
-      grid-template-columns: 0.75fr 0.75fr 1.2fr 0.75fr 0.75fr;
-      gap: 0.5rem;
+      // grid-template-columns: 0.75fr 0.75fr auto 0.75fr 0.75fr;
+      // gap: 0.5rem;
     }
 
     // nav on mobile
@@ -80,11 +100,12 @@
     // nav logo
     .nav_logo {
       justify-self: center;
-      margin: 0;
 
       img {
         position: relative;
+        margin: 0 2.5rem;
         height: 4.75rem;
+        transition: height 0.2s ease;
         // height: 2.75rem; // on scroll trigger later
 
         @include media('<=1440px') {
@@ -100,6 +121,7 @@
         }
 
         @include media('<=975px') {
+          margin: 0 1.5rem;
           height: 2.875rem;
         }
       }

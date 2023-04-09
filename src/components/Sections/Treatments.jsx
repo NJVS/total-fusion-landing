@@ -1,59 +1,49 @@
-import { useState, useEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import global from '../../global.module.scss';
 import Carousel from '../Carousel/Carousel';
 import styles from './Sections.module.scss';
 
 const Treatments = () => {
-  // responsive carousel options
-  const [windowDimension, setWindowDimension] = useState(window.innerWidth);
-  
-  const setColHandler = () => {
-    if (windowDimension > 975) {
-      return 3.5
-    } else if (windowDimension > 545) {
-      return 2.5
-    } else {
-      return 1.5
-    }
-  }
+  const app = useRef();
+  const container1 = useRef();
+  const container2 = useRef();
+  const heading1 = useRef();
+  const heading2 = useRef();
+  const heading3 = useRef();
+  const paragraph1 = useRef();
+  const paragraph2 = useRef();
+  const button = useRef();
 
-  const setGapHandler = () => {
-    if (windowDimension > 975) {
-      return 40
-    } else {
-      return 20
-    }
-  }
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
 
-  const setRowHandler = () => {
-    if (windowDimension > 425) {
-      return 2
-    } else {
-      return 1
-    }
-  }
+      gsap.from(container1.current.children, 0.75, {
+        autoAlpha: 0, y: 30, stagger: 0.25,
+        scrollTrigger: {
+          trigger: container1.current,
+          start: 'bottom bottom',
+        }
+      });
 
-  const [col, setCol] = useState((windowDimension > 975) ? 3.5 : (windowDimension > 545) ? 2.5 : 1.5);
-  const [row, setRow] = useState((windowDimension > 975) ? 40 : 20);
-  const [gap, setGap] = useState((windowDimension > 425) ? 2 : 1);
+      gsap.from(container2.current.children, 0.75, {
+        autoAlpha: 0, y: 30, stagger: 0.25,
+        scrollTrigger: {
+          trigger: container2.current,
+          start: 'bottom bottom'
+        }
+      })
 
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWindowDimension(window.innerWidth);
-    })
-  }, []);
+    }, app);
 
-  useEffect(() => {
-    setCol((windowDimension > 975) ? 3.5 : (windowDimension > 545) ? 2.5 : 1.5);
-    setGap((windowDimension > 975) ? 40 : 20);
-    setRow((windowDimension > 425) ? 2 : 1);
-    
-  }, [windowDimension])
-
+    return () => ctx.revert();
+  }, [])
 
   return (
     <section id='treatments' className={`${styles.container} ${styles.treatments}`}>
-      <div className={styles.header}>
+      <div ref={container1} className={styles.header}>
         <h1 className={global.title}>Treatments</h1>
         <p className={global.paragraph}>
           There is nothing ordinary about what we do at Total Fusion. We offer a unique range of
@@ -62,10 +52,10 @@ const Treatments = () => {
         </p>
       </div>
       <div className={styles.body}>
-        <Carousel col={col} row={row} gap={gap} />
+        <Carousel />
       </div>
       <div id='packages' className={styles.footer}>
-        <div className={global.container}>
+        <div ref={container2} className={global.container}>
           <h2 className={global.title}>Value Packages</h2>
           <div>
             <p className={global.paragraph}>
